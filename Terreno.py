@@ -1,3 +1,5 @@
+from ListaDoble import ListaDoble
+
 class Terreno:
     def __init__(self, terreno, filasM, columnasN, xInicial, yInicial, xFinal, yFinal):
         self.terreno = terreno
@@ -7,7 +9,7 @@ class Terreno:
         self.yInicial = yInicial
         self.xFinal = xFinal
         self.yFinal = yFinal
-        # self.cordenadasXY 
+        self.cordenadasXY = ListaDoble()
         self.siguiente = None
         
     

@@ -20,7 +20,7 @@ class ListaSimple():
     def mostrarTerrenos(self):
         tmp = self.inicio
         while tmp is not None:
-            print('Terreno:', tmp.terreno)
+            print('Terreno--------------------------------------- ', tmp.terreno)
             print('m -> :', tmp.filasM)
             print('N -> :', tmp.columnasN)
             print('xInicial :', tmp.xInicial)
@@ -29,4 +29,10 @@ class ListaSimple():
             print('yFinal :', tmp.yFinal)
             tmp = tmp.siguiente
 
-
+    def getTerreno(self, terreno):
+        tmp = self.inicio
+        while tmp is not None:
+            if tmp.terreno == terreno:
+                return tmp
+            tmp = tmp.siguiente
+        return None
