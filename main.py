@@ -91,7 +91,7 @@ def menu():
             if nomTerreno is None: 
                 print('> Terreno incorrecto o no registrado')
             else:
-                print('Estudiante:', nomTerreno.terreno)
+                print('Terreno ----------------------------- ', nomTerreno.terreno)
                 print('-------Coordenadas-------')
                 nomTerreno.cordenadasXY.mostrarPosiciones()
 
