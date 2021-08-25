@@ -1,7 +1,8 @@
+from ListaSimple import ListaSimple
 import xml.etree.ElementTree as ET
 
 
-def cargarArchivo(ruta):
+def cargarArchivo(ruta, terrenos):
     tree = ET.parse(ruta)
     root = tree.getroot()
 
@@ -28,6 +29,7 @@ def cargarArchivo(ruta):
                     print('x Fin -> ', posXFinal.text)
                 for posYFinal in posicionFinal.iter('y'):
                     print('y Fin -> ', posYFinal.text)
+        # terrenos.crearTerrenos('terreno', 'filasM', 'columnasN', 'xInicial', 'yInicial', 'xFinal', 'yFinal')
 
             for posicion in subelemento.iter('posicion'):
                 print('cordenadas -> ', 'x=' ,posicion.attrib['x'] , ' y=', posicion.attrib['y'], ' - ', posicion.text )
@@ -35,9 +37,10 @@ def cargarArchivo(ruta):
                 # for cordenadaX in posicion.attrib['x']:
                 #     print('x cordenada -> ',cordenadaX.text)
 
-                
-def Menu():
+
+def menu():
     opcion = 0
+    ListaTerrenos = ListaSimple()
     while opcion != 6:
         print('----- Menu Ficheros -----')
         print('1. CARGAR ARCHIVO')
@@ -51,7 +54,7 @@ def Menu():
         if opcion == '1':
             Filename = input('Ingrese nombre de archivo:')
             file = './' + Filename
-            cargarArchivo(file)
+            cargarArchivo(file, ListaTerrenos)
  
         elif opcion == '2':
             print('Ingrese nombre fichero')
@@ -68,4 +71,4 @@ def Menu():
         else:
             opcion = 6
 if __name__ == "__main__":
-    Menu()
+    menu()
