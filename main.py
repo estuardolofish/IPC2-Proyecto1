@@ -1,3 +1,4 @@
+from Terreno import Terreno
 from ListaSimple import ListaSimple
 import xml.etree.ElementTree as ET
 
@@ -85,12 +86,25 @@ def menu():
       
         elif opcion == '3':
             print('Ingrese nombre fichero')
+            terr = input('Ingrese Terreno: ')
+            nomTerreno = ListaTerrenos.getTerreno(terr)
+            if nomTerreno is None: 
+                print('> Terreno incorrecto o no registrado')
+            else:
+                print('Estudiante:', nomTerreno.terreno)
+                print('-------Coordenadas-------')
+                nomTerreno.cordenadasXY.mostrarPosiciones()
+
        
         elif opcion == '4':
-            print('Ingrese nombre fichero')
+            print('-> Estuardo Leonel López Par')
+            print('-> 201907622')
+            print('-> Introducción a la Programación de Computación 2 seccion "D" ')
+            print('-> Ingenieria en Ciencias y Sistemas')
+            print('-> 4to Semestre')
          
         elif opcion == '5':
-            print('Ingrese nombre fichero')
+            print('Generando Grafica')
              
         else:
             opcion = 6
