@@ -75,7 +75,7 @@ def generarGrafica(terreno, coordenadas):
         } }
     '''
 
-    print("jamas")
+    print("jaas")
     miArchivo = open(str(terreno)+'.dot', 'w')
     miArchivo.write(grafica)
     miArchivo.close()
