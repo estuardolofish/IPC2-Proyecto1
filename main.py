@@ -1,4 +1,5 @@
 from os import system,startfile
+from typing import Collection
 from Terreno import Terreno
 from ListaSimple import ListaSimple
 import xml.etree.ElementTree as ET
@@ -59,21 +60,47 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
             subgraph cluster_p{
                 label= '''+ str(terreno) +'''
                 bgcolor = "#398D9C"
-                raiz[label = "0,0"]
                 edge[dir = "none"]
     '''
 
     while coordenadas is not None:
-        grafica += 'Fila' + str(coordenadas.x) +'_'+ str(coordenadas.y) +'[label="'+ str(coordenadas.gas) +'"]'+'\n'
+        grafica += 'nodo' + str(coordenadas.x) +'_'+ str(coordenadas.y) +'[label="'+ str(coordenadas.gas) +'"]'+'\n'
         coordenadas = coordenadas.siguiente
         # print('x -> :', coordenadas.x, 'y ->:', coordenadas.y, ' Gas ->:', coordenadas.gas)
 
+    for i in range(1, int(columnaN) + 1):
+        grafica += '\n'
+        # print("")
+    
+        for j in range(1, int(filaM) + 1):
+            if j == int(filaM):
+                grafica += 'nodo' + str(j) +'_'+ str(i) 
+            else:
+                grafica += 'nodo' + str(j) +'_'+ str(i) +'->'
+
+            # print('nodo', i , '_' , j)
+
+    
+    for i in range(1, int(filaM) + 1):
+        grafica += '\n'
+        # print("")
+        grafica += 'rank=same{'
+        for j in range(1, int(columnaN) + 1):
+            if j == int(columnaN):
+                grafica += 'nodo' + str(i) +'_'+ str(j) 
+            else:
+                grafica += 'nodo' + str(i) +'_'+ str(j) +'->'
+        grafica += '}'
+            # print('nodo', i , '_' , j)
+            
 
 
 
     grafica += '''
         } }
     '''
+
+
 
     
     miArchivo = open(str(terreno)+'.dot', 'w')
@@ -118,6 +145,7 @@ def menu():
         elif opcion == '2':
             # print('Ingrese nombre fichero')
             print('---------- Terrenos Ingresados ----------', 'Total:',ListaTerrenos.size)
+            
             ListaTerrenos.mostrarTerrenos()
       
         elif opcion == '3':
@@ -138,11 +166,12 @@ def menu():
                 print('> Terreno incorrecto o no registrado')
             else:
                 print('Terreno ----------------------------- ', nomTerreno.terreno)
+                # print(nomTerreno.filasM)
                 print('-------Coordenadas-------')
                 # nomTerreno.cordenadasXY.mostrarPosiciones()
                 # print("prueba-> ", nomTerreno.cordenadasXY.inicio.gas)
                 tmp = nomTerreno.cordenadasXY.inicio
-                generarGrafica(nomTerreno.terreno, tmp)
+                generarGrafica(nomTerreno.terreno, tmp,nomTerreno.filasM,nomTerreno.columnasN)
              
         else:
             opcion = 6
