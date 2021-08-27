@@ -50,7 +50,7 @@ def cargarArchivo(ruta, terrenos):
                 terreno = terrenos.getTerreno(elemento.attrib['nombre'])
                 terreno.cordenadasXY.insertar(int(posicion.attrib['x']),int(posicion.attrib['y']), int(posicion.text) )
                 
-def generarGrafica(terreno, coordenadas):
+def generarGrafica(terreno, coordenadas,filaM,columnaN):
 
     grafica = '''
         digraph mapaTerreno{
@@ -75,7 +75,7 @@ def generarGrafica(terreno, coordenadas):
         } }
     '''
 
-    print("jamas")
+    print("probando git bash")
     miArchivo = open(str(terreno)+'.dot', 'w')
     miArchivo.write(grafica)
     miArchivo.close()
