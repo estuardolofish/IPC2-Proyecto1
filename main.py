@@ -75,7 +75,7 @@ def generarGrafica(terreno, coordenadas):
         } }
     '''
 
-    
+    fdsa
     miArchivo = open(str(terreno)+'.dot', 'w')
     miArchivo.write(grafica)
     miArchivo.close()
