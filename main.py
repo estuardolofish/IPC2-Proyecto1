@@ -75,7 +75,7 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
         } }
     '''
 
-    print("probando git bash")
+    
     miArchivo = open(str(terreno)+'.dot', 'w')
     miArchivo.write(grafica)
     miArchivo.close()
