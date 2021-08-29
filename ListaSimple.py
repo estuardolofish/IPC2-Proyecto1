@@ -29,6 +29,13 @@ class ListaSimple():
             print('yFinal :', tmp.yFinal)
             tmp = tmp.siguiente
 
+    def mostrarSoloTerrenos(self):
+        tmp = self.inicio
+        while tmp is not None:
+            print('-> ', tmp.terreno)
+            tmp = tmp.siguiente
+            
+
     def getTerreno(self, terreno):
         tmp = self.inicio
         while tmp is not None:

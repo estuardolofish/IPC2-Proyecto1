@@ -41,9 +41,10 @@ def cargarArchivo(ruta, terrenos):
                     pass
         terrenos.crearTerreno(elemento.attrib['nombre'], int(dimM.text), int(dimN.text), int(posXInicio.text), int(posYInicio.text), int(posXFinal.text), int(posYFinal.text))
 
+        # aqui imprimo las coordenadas y el gas
         for subelemento in elemento:
             for posicion in subelemento.iter('posicion'):
-                print('cordenadas -> ', 'x=' ,posicion.attrib['x'] , ' y=', posicion.attrib['y'], ' - ', posicion.text )
+                # print('cordenadas -> ', 'x=' ,posicion.attrib['x'] , ' y=', posicion.attrib['y'], ' - ', posicion.text )
                 pass
                 # print('Gasolina -> ',posicion.text)
                 # for cordenadaX in posicion.attrib['x']:
@@ -53,13 +54,18 @@ def cargarArchivo(ruta, terrenos):
                 
 def generarGrafica(terreno, coordenadas,filaM,columnaN):
 
+    # while coordenadas is not None:
+    #     print('fila:', coordenadas.x, 'columna:', coordenadas.y, ' Gas ->:', coordenadas.gas)
+    #     coordenadas = coordenadas.siguiente
+
+    coordenadasMatriz = coordenadas 
     grafica = '''
         digraph mapaTerreno{
-            node[shape=box fillcolor="#FFEDBB" style =filled]
+            node[shape=box fillcolor="#00FA92" style =filled]
             
             subgraph cluster_p{
                 label= '''+ str(terreno) +'''
-                bgcolor = "#398D9C"
+                bgcolor = "#FFFBD6"
                 edge[dir = "none"]
     '''
 
@@ -99,9 +105,13 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
     grafica += '''
         } }
     '''
-
-
-
+    # imprimiendo en forma de matriz 
+    while coordenadasMatriz is not None:
+        print("[", end=" ")
+        for j in range(1,int(columnaN) +1):
+            print(coordenadasMatriz.gas, end=" ")
+            coordenadasMatriz = coordenadasMatriz.siguiente
+        print("]")
     
     miArchivo = open(str(terreno)+'.dot', 'w')
     miArchivo.write(grafica)
@@ -111,10 +121,8 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
     system('cd ./'+str(terreno)+'.pdf')
     startfile(''+str(terreno)+'.pdf')
 
-
-    while coordenadas is not None:
-        print('fila:', coordenadas.x, 'columna:', coordenadas.y, ' Gas ->:', coordenadas.gas)
-        coordenadas = coordenadas.siguiente
+def generarRutaCorta(terreno, coordenadas,filaM, columnaN,xInicial,yInicial,xFinal,yFinal ):
+    print(terreno)
 
 
 
@@ -132,21 +140,39 @@ def menu():
         opcion = input("-> ")
         ruta = ''
         if opcion == '1':
-                # try:
+                try:
                     Filename = input('Ingrese nombre de archivo:')
                     # if ".xml" in Filename:
                     file = './' + Filename
-                    cargarArchivo(file, ListaTerrenos)
-                    print("Archivo ingresado exitosamente")
-                #     else:
-                #         print("Extencion no Admitida en el programa o ruta no encontrada")
-                # except:
-                #     print("Vuelva a ingresar la ruta")
+                    print(file)
+                    if '.xml' in file:
+                        cargarArchivo(file, ListaTerrenos)
+                        print("Archivo ingresado exitosamente")
+                    else:
+                        print("Extencion no Admitida en el programa o ruta no encontrada")
+                except:
+                    print("Errro al ingresar el archivo")
         elif opcion == '2':
             # print('Ingrese nombre fichero')
-            print('---------- Terrenos Ingresados ----------', 'Total:',ListaTerrenos.size)
+            print('***********Eligiendo la ruta mas cota ***********')
+            # sirve para mostar totos lso terrenos y coordenadas
+            # ListaTerrenos.mostrarTerrenos()
+
+            print("Terrenos ingresados: ")
+            ListaTerrenos.mostrarSoloTerrenos()
+            terr = input('Ingrese Terreno que dese graficar -> ')
+            nomTerreno = ListaTerrenos.getTerreno(terr)
+            if nomTerreno is None: 
+                print('> Terreno incorrecto o no registrado')
+            else:
+                print('Terreno ----------------------------- ', nomTerreno.terreno)
+                # print(nomTerreno.filasM)
+                print('-------Archivo procesado-------')
+                # nomTerreno.cordenadasXY.mostrarPosiciones()
+                # print("prueba-> ", nomTerreno.cordenadasXY.inicio.gas)
+                tmp = nomTerreno.cordenadasXY.inicio
+                generarRutaCorta(nomTerreno.terreno, tmp,nomTerreno.filasM,nomTerreno.columnasN,nomTerreno.xInicial,nomTerreno.xFinal, nomTerreno.xFinal, nomTerreno.yFinal)
             
-            ListaTerrenos.mostrarTerrenos()
       
         elif opcion == '3':
             print('Ingrese nombre fichero')
@@ -159,7 +185,9 @@ def menu():
             print('-> 4to Semestre')
          
         elif opcion == '5':
-            print('Generando Grafica')
+            print('*********** Generando Grafica *************')
+            print("Terrenos ingresados: ")
+            ListaTerrenos.mostrarSoloTerrenos()
             terr = input('Ingrese Terreno que dese graficar -> ')
             nomTerreno = ListaTerrenos.getTerreno(terr)
             if nomTerreno is None: 
