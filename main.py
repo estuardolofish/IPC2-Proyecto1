@@ -21,8 +21,7 @@ def cargarArchivo(ruta, terrenos):
                     pass
                 for dimN in dimension.iter('n'):
                     # print('n -> ', dimN.text)
-                    pass
-                    
+                    pass        
             # para obtener los datos de la posicion inicial        
             for posicionInicial in subelemento.iter('posicioninicio'):
                 for posXInicio in posicionInicial.iter('x'):
@@ -64,7 +63,7 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
             node[shape=box fillcolor="#00FA92" style =filled]
             
             subgraph cluster_p{
-                label= '''+ str(terreno) +'''
+                label= "'''+ str(terreno) +" -> "+  str(filaM) + "X" +  str(columnaN) + '''"
                 bgcolor = "#FFFBD6"
                 edge[dir = "none"]
     '''
@@ -109,7 +108,8 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
     while coordenadasMatriz is not None:
         print("[", end=" ")
         for j in range(1,int(columnaN) +1):
-            print(coordenadasMatriz.gas, end=" ")
+            print("{:<4}".format(coordenadasMatriz.gas), end=" ")
+            # print(coordenadasMatriz.gas, end=" ")
             coordenadasMatriz = coordenadasMatriz.siguiente
         print("]")
     
@@ -122,7 +122,18 @@ def generarGrafica(terreno, coordenadas,filaM,columnaN):
     startfile(''+str(terreno)+'.pdf')
 
 def generarRutaCorta(terreno, coordenadas,filaM, columnaN,xInicial,yInicial,xFinal,yFinal ):
-    print(terreno)
+    print("Ruta del terreno ->", terreno)
+    print("Dimensiones -> ", filaM, "X", columnaN )
+    print("Punto Inicial -> ", xInicial, ",", yInicial)
+    print("Punto Final -> ", xFinal, ",", yFinal)
+    # imprimiendo en forma de matriz 
+    while coordenadas is not None:
+        print("[", end=" ")
+        for j in range(1,int(columnaN) +1):
+            # print ("{:<1} {:<2} {:<30} {:<13} {:<5}".format("|",alumnoNum,alumno, nota,"|"))
+            print("{:<4}".format(coordenadas.gas), end=" ")
+            coordenadas = coordenadas.siguiente
+        print("]")
 
 
 
@@ -172,10 +183,12 @@ def menu():
                 # print("prueba-> ", nomTerreno.cordenadasXY.inicio.gas)
                 tmp = nomTerreno.cordenadasXY.inicio
                 generarRutaCorta(nomTerreno.terreno, tmp,nomTerreno.filasM,nomTerreno.columnasN,nomTerreno.xInicial,nomTerreno.xFinal, nomTerreno.xFinal, nomTerreno.yFinal)
+                print("lo intente jeje pero no salio")
             
       
         elif opcion == '3':
-            print('Ingrese nombre fichero')
+            print("lo intente jeje pero no salio")
+
        
         elif opcion == '4':
             print('-> Estuardo Leonel López Par')
